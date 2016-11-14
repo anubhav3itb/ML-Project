@@ -200,9 +200,7 @@ def gradientDescent(X, y, theta_vector, alpha, num_iter):
 		
 			theta_vector[k] = theta_vector[k]-((alpha/len(y))*sigma_sum)
 			#print "theta_vector[",k,'] ',theta_vector[k], ' sigma sum: ', sigma_sum
-		
-			
-		
+				
 
 def calculateScore(sentence, theta_vectors):
 	test_vector = generateVector(sentence)
