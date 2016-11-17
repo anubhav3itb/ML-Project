@@ -1,0 +1,42 @@
+###########################################
+Current ods is  1
+Total training examples:  1516
+Total test examples:  267
+total correct scikit:  124
+total correct lr:  111
+Current Model Complete
+###########################################
+Current ods is  2
+Total training examples:  1530
+Total test examples:  270
+total correct scikit:  169
+total correct lr:  163
+Current Model Complete
+###########################################
+Current ods is  3
+Total training examples:  1467
+Total test examples:  259
+total correct scikit:  161
+total correct lr:  159
+Current Model Complete
+###########################################
+Current ods is  4
+Total training examples:  1505
+Total test examples:  265
+total correct scikit:  156
+total correct lr:  138
+Current Model Complete
+###########################################
+Current ods is  5
+Total training examples:  1535
+Total test examples:  270
+total correct scikit:  177
+total correct lr:  146
+Current Model Complete
+###########################################
+Current ods is  6
+Total training examples:  1530
+Total test examples:  270
+total correct scikit:  145
+total correct lr:  121
+Current Model Complete

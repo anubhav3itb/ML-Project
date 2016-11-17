@@ -190,7 +190,7 @@ def oneVsAll(X, y, num_labels, lambdas, initial_theta):
 	final_matrix = []
 	for i in range(0, num_labels):
 		print "current class is, ", i
-		a = gradientCalculation(initial_theta, X, y_matrix == i, lambdas, 80, 0.01)
+		a = gradientCalculation(initial_theta, X, y_matrix == i, lambdas, 200, 0.01)
 		final_matrix.append(a)
 	return final_matrix
 	
@@ -205,20 +205,27 @@ def predictValue(final_theta, X):
 	
 
 def checkAccuracy(final_theta, essay_list, marks_list):
+	count = 0
 	for i in range(0, len(essay_list)):
 		pred = predictValue(final_theta, generateVector(essay_list[i]))
 		print "predicted value is: ", pred, " and actual value is ", marks_list[i]
+		if pred == marks_list[i]:
+			count = count + 1
+	print "accurate: ",count
+	print "total: ", len(marks_list)
+	print "point to point accuracy is: ", (count/len(marks_list)*1.0)*100, "%"
+	
 
 
 def main():
-	readODS("test2.ods")
+	readODS("set1_ml.ods")
 	print "Reading Complete"
 	
-	global_train_essay = global_essay_list[:170]
-	global_train_marks = global_marks_list[:170]
+	global_train_essay = global_essay_list[:1550]
+	global_train_marks = global_marks_list[:1550]
 	
-	global_test_essay = global_essay_list[170:]
-	global_test_marks = global_marks_list[170:]
+	global_test_essay = global_essay_list[1550:]
+	global_test_marks = global_marks_list[1550:]
 	
 	generateGlobalList(global_essay_list)
 	print "Generated Global List with size, ", len(global_word_list)
