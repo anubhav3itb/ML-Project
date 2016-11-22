@@ -1,0 +1,61 @@
+###########################################
+Current ods is  1
+Reading started
+reading Complete
+Total training examples:  1516
+Total test examples:  267
+total correct scikit:  123
+total correct lr:  112
+Accuracy: 42%
+Current Model Complete
+###########################################
+Current ods is  2
+Reading started
+reading Complete
+Total training examples:  1530
+Total test examples:  270
+total correct scikit:  171
+total correct lr:  165
+Accuracy: 61.1%
+Current Model Complete
+###########################################
+Current ods is  3
+Reading started
+reading Complete
+Total training examples:  1467
+Total test examples:  259
+total correct scikit:  165
+total correct lr:  174
+Accuracy: 67.1%
+Current Model Complete
+###########################################
+Current ods is  4
+Reading started
+reading Complete
+Total training examples:  1505
+Total test examples:  265
+total correct scikit:  155
+total correct lr:  140
+Accuracy: 52.83%
+Current Model Complete
+###########################################
+Current ods is  5
+Reading started
+reading Complete
+Total training examples:  1535
+Total test examples:  270
+total correct scikit:  176
+total correct lr:  157
+Accuracy: 58.1%
+Current Model Complete
+###########################################
+Current ods is  6
+Reading started
+reading Complete
+Total training examples:  1530
+Total test examples:  270
+total correct scikit:  142
+total correct lr:  122
+Accuracy: 45.18%
+Current Model Complete
+

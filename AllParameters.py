@@ -10,6 +10,7 @@ import string
 import numpy
 import math
 from sklearn import linear_model, datasets
+from nltk.corpus import wordnet as wn
 from scipy import optimize
 import enchant
 
@@ -21,6 +22,7 @@ global_spelling_list = []
 global_NN = []
 global_JJ = []
 global_VBPD = []
+global_synonym_list = []
 
 global_word_list = []
 all_vector_list = []
@@ -106,7 +108,7 @@ def NormalizeList(lists):
 	return temp
 
 
-def generateX(sent_list, word_list, spell_list, NN_list, JJ_list, VBPD_list):
+def generateX(sent_list, word_list, spell_list, NN_list, JJ_list, VBPD_list, synonym_list):
 	X = []
 	for i in range(len(sent_list)):
 		temp = []
@@ -117,9 +119,36 @@ def generateX(sent_list, word_list, spell_list, NN_list, JJ_list, VBPD_list):
 		temp.append(NN_list[i])
 		temp.append(JJ_list[i])
 		temp.append(VBPD_list[i])
+		temp.append(synonym_list[i])
 
 		X.append(temp)
 	return X
+	
+def getSynonymList(word):
+	lists = wn.synsets(word)
+	outs = []
+	for each in lists:
+		outs.append(str(each.name()).split(".")[0])
+	outs.append(word)
+	return list(set(outs))
+	
+
+def getAllSynonyms(string):
+	lists = string.split()
+	outs = []
+	for each in lists:
+		outs = outs + getSynonymList(each)
+		
+	return outs
+
+def getSynonymCount(best_list, string):
+	lists = string.split()
+	count = 0
+	
+	for each in lists:
+		if each in best_list:
+			count = count + 1
+	return count
 
 def zerolistmaker(n):
 	listofzeros = [0] * n
@@ -251,7 +280,8 @@ def main():
 		global global_NN
 		global global_essay_list
 		global global_marks_list
-		
+		global global_synonym_list
+	
 		global_spelling_list = []
 		global_number_words = []
 		global_number_sent = []
@@ -260,14 +290,34 @@ def main():
 		global_NN = []
 		global_essay_list = []
 		global_marks_list = []
-		
-		
+		global_synonym_list = []
+	
+	
+	
+	
 		print "Current ods is ", i
-		#print "Reading started"
+		print "Reading started"
+		#len_lists,number_classes = readODS("test.ods")
 		len_lists,number_classes = readODS("set"+str(i)+".ods")
 		input_param = (len_lists*85)/100
-		
-		#print "reading Complete"
+	
+		print "reading Complete"
+	
+		##############################Populating global synonym List####################################
+		m = max(global_marks_list)
+		#print m
+		max_list = [i for i, j in enumerate(global_marks_list) if j == m]
+		best_essay = ""
+		for each in max_list:
+			best_essay = best_essay + global_essay_list[each]
+	
+		list_all_synonyms = getAllSynonyms(best_essay)
+		#print list_all_synonyms
+		for each in global_essay_list:
+			 count = getSynonymCount(list_all_synonyms, each)
+			 #print count
+			 global_synonym_list.append(count)
+	
 
 
 		Normalized_NN = NormalizeList(global_NN)
@@ -276,20 +326,19 @@ def main():
 		Normalized_sent = NormalizeList(global_number_sent)
 		Normalized_words = NormalizeList(global_number_words)
 		Normalized_spelling = NormalizeList(global_spelling_list)
-		#print len(Normalized_NN), len(Normalized_JJ), len(Normalized_VBPD), len(Normalized_sent), len(Normalized_words), len(Normalized_spelling)
-		#print "len of y is", len(global_marks_list)
-		
+		Normalized_synonym = NormalizeList(global_synonym_list)
+	
 		#print "Normalization Complete"
-		
+	
 
-		X =  generateX(Normalized_sent, Normalized_words, Normalized_spelling, Normalized_NN, Normalized_JJ, Normalized_VBPD)
+		X =  generateX(Normalized_sent, Normalized_words, Normalized_spelling, Normalized_NN, Normalized_JJ, Normalized_VBPD, Normalized_synonym)
 		#print "size of X:",len(X)
 		X_train = X[:input_param]
 		X_test = X[input_param:]
 
 		y_train = global_marks_list[:input_param]
 		y_test = global_marks_list[input_param:]
-		
+	
 		#print "train size: ",len(X_train)
 		#print "test_ size: ",len(X_test)
 
